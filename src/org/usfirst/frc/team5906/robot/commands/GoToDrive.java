@@ -13,25 +13,21 @@ import org.usfirst.frc.team5906.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-	public static int c_in;
-	public static int c;
-	
-	public ExampleCommand(int c_in) {
+public class GoToDrive extends Command {
+	public GoToDrive() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.kExampleSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
-	protected void initialize() {
+	public void initialize() {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {
+	public void execute() {
 		
-		int c = c_in;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

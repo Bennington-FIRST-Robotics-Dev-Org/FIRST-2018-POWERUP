@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	static Joystick mecstick=new Joystick(0);
-	static JoystickButton button1 = new JoystickButton(mecstick, 1);
+	static JoystickButton button1 = new JoystickButton(mecstick, 7);
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
@@ -25,8 +25,11 @@ public class OI {
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
-	static JoystickButton button2 = new JoystickButton(mecstick, 2);
-	JoystickButton button3 = new JoystickButton(mecstick, 3);
+	static JoystickButton button2 = new JoystickButton(mecstick, 8);
+	static JoystickButton button3 = new JoystickButton(mecstick, 9);
+	static JoystickButton button4 = new JoystickButton(mecstick, 10);
+	static JoystickButton button5 = new JoystickButton(mecstick, 11);
+	static JoystickButton button6 = new JoystickButton(mecstick, 12);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
