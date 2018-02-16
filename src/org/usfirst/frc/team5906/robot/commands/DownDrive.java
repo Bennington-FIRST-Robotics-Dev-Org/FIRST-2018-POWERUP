@@ -27,7 +27,7 @@ public class DownDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	public void execute() {
-	Robot.UpDrive.mecanumDrive_Cartesian(-1,-1,-1,0);
+	Robot.UpChannel.set(-1);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

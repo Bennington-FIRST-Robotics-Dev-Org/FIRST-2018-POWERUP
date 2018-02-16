@@ -13,8 +13,8 @@ import org.usfirst.frc.team5906.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class UpDrive extends Command {
-	public UpDrive() {
+public class UpDrive1 extends Command {
+	public UpDrive1() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.kExampleSubsystem);
 	}
@@ -27,7 +27,7 @@ public class UpDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	public void execute() {
-	Robot.UpDrive.mecanumDrive_Cartesian(1,1,1,0);
+	Robot.UpChannel.set(1);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

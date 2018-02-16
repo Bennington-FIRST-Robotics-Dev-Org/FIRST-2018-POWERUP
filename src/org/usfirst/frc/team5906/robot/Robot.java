@@ -7,21 +7,17 @@
 
 package org.usfirst.frc.team5906.robot;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SPI;
+
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5906.robot.commands.Sensitivity1;
-import org.usfirst.frc.team5906.robot.commands.Sensitivity2;
+
 import org.usfirst.frc.team5906.robot.commands.*;
 import org.usfirst.frc.team5906.robot.subsystems.ExampleSubsystem;
+import java.util.Random;
 import edu.wpi.first.wpilibj.*;
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,20 +26,17 @@ import edu.wpi.first.wpilibj.*;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-@SuppressWarnings("deprecation")
 public class Robot extends TimedRobot {
+	Random rand = new Random();
 	public static AHRS ahrs;
-	public static RobotDrive UpDrive;
+	//public static RobotDrive UpDrive;
 	public static RobotDrive myDrive;
 	final int kFrontLeftChannel=2;
 	final int kRearLeftChannel=3;
 	final int kFrontRightChannel=1;
 	final int kRearRightChannel=0;
-	final int UpChannel=4;
-	final int UpChannel2=5;
-	final int UpChannel3=6;
-	final int UpChannel4=7;
-	public static Compressor comp = new Compressor(0);
+	public final static Victor UpChannel = new Victor(4);
+	//public static Compressor comp = new Compressor(0);
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
 	public static int autox;
@@ -58,27 +51,40 @@ public class Robot extends TimedRobot {
 	 * ;D;
 	 */
 	public Robot(){
+		/** int  randomstart = rand.nextInt(75);
+		System.out.println("*Yawn*");
+		if (randomstart<=10){
+		System.out.println("I'm waking up, give me 5 more minutes! \\≧Д≦/");
+		} else {
+			if (randomstart<=25){
+		System.out.println("I'm still kinda tired, but I think I can do! (`~`)");
+			}else{
+				if(randomstart<=75){
+					System.out.println("Ok! I'm pumped lets do this! ٩(>ᴗ<)۶");
+				}
+			}
+		} **/
 		autox = 0;
 		autoy = 0;
-		System.out.println("I'm waking up, give me 5 more minutes!");
 		OI.button1.whenPressed(new Sensitivity1());
 		OI.button2.whenPressed(new Sensitivity2());
-		OI.button3.whenPressed(new UpDrive());
+		OI.button3.whenPressed(new UpDrive1());
 		OI.button4.whenPressed(new NoDrive());
 		OI.button5.whenPressed(new DownDrive());
-		OI.button6.whenPressed(new CompressorCommand());
+		//OI.button6.whenPressed(new CompressorCommand());
 		myDrive=new RobotDrive(kFrontLeftChannel, kRearLeftChannel, kFrontRightChannel, kRearRightChannel);
-		UpDrive=new RobotDrive(UpChannel,UpChannel2,UpChannel3,UpChannel4);
+		//UpDrive=new RobotDrive(UpChannel, UpChannel);
 		myDrive.setInvertedMotor(MotorType.kFrontLeft, true);
 		myDrive.setInvertedMotor(MotorType.kRearLeft, true);
 		myDrive.setExpiration(0.1);
-		comp.setClosedLoopControl(true);
-		comp.setClosedLoopControl(false);
+		//comp.setClosedLoopControl(true);
+		//comp.setClosedLoopControl(false);
+		
 		try {
 			ahrs = new AHRS(SerialPort.Port.kUSB1);
 			ahrs.enableLogging(true);
 		} catch (RuntimeException ex ) {
-			System.out.println("No Gyro! (╯°□°）╯︵ ┻━┻");
+			//System.out.println("No Gyro! (╯°□°）╯︵ ┻━┻");
 			DriverStation.reportError("Error instantiating navX MVP: " + ex.getMessage(), true);
 			
 		}
@@ -88,26 +94,27 @@ public class Robot extends TimedRobot {
 	
 	
 	
-	private static String GoToDrive() {
+	private static String GoToDrive() {/**
 		//This should make the robot go to or a little bit over the x and y
-		System.out.println("Ok! Calculating path! /(>‸<)\\");
+		//System.out.println("Ok! Calculating path! /(>‸<)\\");
 		while (Robot.ahrs.getDisplacementX() <= Robot.autox){
 			Robot.myDrive.mecanumDrive_Cartesian(1,0,0,0);
 		}
 		if(Robot.ahrs.getDisplacementX() >= Robot.autox){
-		System.out.println("Ok! half way there! (･ω･)");
+		//System.out.println("Ok! half way there! (･ω･)");
 			Robot.myDrive.mecanumDrive_Cartesian(0,0,0,0);
 		}
-		System.out.println("Lets keep moving! └(>ω<。)┐-=≡");
+		//System.out.println("Lets keep moving! └(>ω<。)┐-=≡");
 		while (Robot.ahrs.getDisplacementY() <= Robot.autoy){
 			Robot.myDrive.mecanumDrive_Cartesian(0,1,0,0);
 		}
 		if(Robot.ahrs.getDisplacementY() >= Robot.autoy){
 			Robot.myDrive.mecanumDrive_Cartesian(0,0,0,0);
 		}
-		System.out.println("I did it! (๑˃̵ᴗ˂̵)و");
+		//System.out.println("I did it! (๑˃̵ᴗ˂̵)و");
+		**/
 		return "Done";
-	}
+}
 
 
 
@@ -127,7 +134,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		System.out.println("Naptime I guess... (*-ω-)...zzzZZZ");
+		//System.out.println("Naptime I guess... (*-ω-)...zzzZZZ");
 	}
 
 	@Override
@@ -212,9 +219,22 @@ public class Robot extends TimedRobot {
 			SmartDashboard.putNumber("Sensitivity", Sensitivity1.c);
 			myDrive.mecanumDrive_Cartesian(X*Sensitivity1.c, Y*Sensitivity1.c, Z*Sensitivity1.c, 0);
 			Timer.delay(0.005);
+			/** int  randomstart = rand.nextInt(100);
+			if (randomstart <=10  && ahrs.getVelocityX()==0 && ahrs.getVelocityY()==0){
+			if (randomstart == 1){
+			//	System.out.println("Did you guys know I have a pet rabbit? His name is Buttercup! (/^▽^)/ U(´･×･`)U");
+			}else{
+				if (randomstart== 2){
+				//	System.out.println("I'll just play some NES if we're not moving... (p^-^)p[+..••] [___]");
+				}else{
+					if(randomstart==3){
+					//	System.out.println("Oh man! Its a wild wooper! (卅(•‿•)卅)");
+					}
+				}
+			}
+			}**/
 			Scheduler.getInstance().run();
 		}
-		
 	}
 
 	/**
@@ -222,6 +242,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		System.out.println("Ok, but I'm not very good at tests! (>﹏>')");
+		System.out.println("Ok, but I'm not very good at tests! (>~>')");
 	}
 }

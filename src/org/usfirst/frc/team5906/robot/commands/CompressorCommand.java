@@ -24,19 +24,20 @@ public class CompressorCommand extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	public void initialize() {
-		boolean enabled = Robot.comp.enabled();
-		boolean pressureSwitch = Robot.comp.getPressureSwitchValue();
-		double current = Robot.comp.getCompressorCurrent();
+		//boolean enabled = Robot.comp.enabled();
+		//boolean pressureSwitch = Robot.comp.getPressureSwitchValue();
+		//double current = Robot.comp.getCompressorCurrent();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	public void execute() {
-		if(Robot.comp.enabled() == true){
-			CompressorCommand.enabled = false;
-		} else {
-			CompressorCommand.enabled = true;
-		}
+		//System.out.println("Move like a butterfly, sting like a bee! (∩`ω´)⊃))");
+		//if(Robot.comp.enabled() == true){
+			//CompressorCommand.enabled = false;
+		//} else {
+			//CompressorCommand.enabled = true;
+		//}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
